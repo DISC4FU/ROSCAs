@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE contributions\n        SET status = 'paid',\n            mpesa_receipt_number = $1,\n            raw_callback_payload = $2,\n            paid_at = NOW(),\n            updated_at = NOW()\n        WHERE id = $3 AND status = 'pending'\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Jsonb",
+        "Int8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "253f004608f9ad2a1313d0db27f1d77132fb4a2a1e172947c434a8b073bb324d"
+}

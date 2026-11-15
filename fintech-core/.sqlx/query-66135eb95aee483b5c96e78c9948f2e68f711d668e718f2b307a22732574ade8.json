@@ -1,0 +1,35 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT\n            members.phone_number AS member_phone_number,\n            members.chama_id AS member_chama_id,\n            payout_cycles.chama_id AS cycle_chama_id\n        FROM members\n        JOIN payout_cycles ON payout_cycles.id = $2\n        WHERE members.id = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "member_phone_number",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "member_chama_id",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 2,
+        "name": "cycle_chama_id",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "66135eb95aee483b5c96e78c9948f2e68f711d668e718f2b307a22732574ade8"
+}

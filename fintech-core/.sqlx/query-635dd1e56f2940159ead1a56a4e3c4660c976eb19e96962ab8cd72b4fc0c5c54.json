@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE contributions\n        SET merchant_request_id = $1, checkout_request_id = $2, updated_at = NOW()\n        WHERE id = $3 AND status = 'pending'\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Varchar",
+        "Int8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "635dd1e56f2940159ead1a56a4e3c4660c976eb19e96962ab8cd72b4fc0c5c54"
+}

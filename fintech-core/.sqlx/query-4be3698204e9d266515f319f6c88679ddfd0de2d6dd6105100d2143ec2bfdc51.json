@@ -1,0 +1,46 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT\n            contributions.id,\n            contributions.status,\n            contributions.merchant_request_id,\n            contributions.amount::text AS \"amount!\",\n            members.phone_number\n        FROM contributions\n        JOIN members ON members.id = contributions.member_id\n        WHERE contributions.checkout_request_id = $1\n        FOR UPDATE OF contributions\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 1,
+        "name": "status",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "merchant_request_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "amount!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "phone_number",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      null,
+      false
+    ]
+  },
+  "hash": "4be3698204e9d266515f319f6c88679ddfd0de2d6dd6105100d2143ec2bfdc51"
+}

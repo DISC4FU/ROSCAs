@@ -1,0 +1,34 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT status, mpesa_receipt_number, raw_callback_payload IS NOT NULL AS \"has_payload!\"\n            FROM contributions\n            WHERE id = $1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "status",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "mpesa_receipt_number",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "has_payload!",
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      null
+    ]
+  },
+  "hash": "dbca3caee8ccd86d233d2defc78b0854a520a3a11c60382c2aa986a4c51876e2"
+}

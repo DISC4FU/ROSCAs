@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO audit_logs (\n            actor_type, actor_id, auditable_type, auditable_id,\n            action, changeset, metadata, created_at\n        )\n        VALUES ('Daraja', NULL, 'Contribution', $1, $2, $3, $4, NOW())\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Varchar",
+        "Jsonb",
+        "Jsonb"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "707fd47a14e35ce5236bfc50ec09f766367529a59a7dfb6601fbe4537c37b0d2"
+}

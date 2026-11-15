@@ -1,0 +1,79 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: roscas_development
+      POSTGRES_USER: roscas
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-roscas_dev_password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U roscas -d roscas_development"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  rails:
+    profiles: ["apps"]
+    build:
+      context: .
+    environment:
+      RAILS_ENV: production
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:-development_only_replace_before_deploy}
+      PORT: 3000
+      RAILS_FORCE_SSL: "false"
+      DB_HOST: db
+      DB_NAME: roscas_development
+      DB_USER: roscas
+      DB_PASSWORD: ${DB_PASSWORD:-roscas_dev_password}
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:3000/up >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    command: ["./bin/rails", "server"]
+
+  fintech-core:
+    profiles: ["apps"]
+    build:
+      context: ./fintech-core
+    environment:
+      DATABASE_URL: postgres://roscas:${DB_PASSWORD:-roscas_dev_password}@db:5432/roscas_development
+      RUST_LOG: info
+      DARAJA_BASE_URL: ${DARAJA_BASE_URL:-https://sandbox.safaricom.co.ke}
+      DARAJA_CONSUMER_KEY: ${DARAJA_CONSUMER_KEY:-}
+      DARAJA_CONSUMER_SECRET: ${DARAJA_CONSUMER_SECRET:-}
+      DARAJA_SHORTCODE: ${DARAJA_SHORTCODE:-}
+      DARAJA_PASSKEY: ${DARAJA_PASSKEY:-}
+      DARAJA_CALLBACK_URL: ${DARAJA_CALLBACK_URL:-}
+      DARAJA_TRANSACTION_TYPE: ${DARAJA_TRANSACTION_TYPE:-}
+    ports:
+      - "8000:8000"
+      - "8080:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      rails:
+        condition: service_healthy
+    command: ["/usr/local/bin/fintech-core"]
+
+volumes:
+  postgres_data:

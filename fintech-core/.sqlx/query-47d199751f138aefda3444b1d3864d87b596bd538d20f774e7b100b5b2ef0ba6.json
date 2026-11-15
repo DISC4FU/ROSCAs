@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO members (\n                chama_id, full_name, phone_number, role, status, created_at, updated_at\n            )\n            VALUES ($1, 'Callback Test Member', '254712345678', 'member', 'active', NOW(), NOW())\n            RETURNING id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "47d199751f138aefda3444b1d3864d87b596bd538d20f774e7b100b5b2ef0ba6"
+}

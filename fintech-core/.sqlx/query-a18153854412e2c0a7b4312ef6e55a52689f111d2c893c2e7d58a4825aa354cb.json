@@ -1,0 +1,25 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO contributions (\n                member_id, payout_cycle_id, amount, status, payment_method,\n                merchant_request_id, checkout_request_id, created_at, updated_at\n            )\n            VALUES ($1, $2, ($3::bigint)::numeric, 'pending', 'mpesa', 'merchant-test', $4, NOW(), NOW())\n            RETURNING id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Int8",
+        "Int8",
+        "Varchar"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "a18153854412e2c0a7b4312ef6e55a52689f111d2c893c2e7d58a4825aa354cb"
+}

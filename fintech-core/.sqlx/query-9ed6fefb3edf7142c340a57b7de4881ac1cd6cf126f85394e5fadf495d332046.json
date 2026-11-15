@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT COUNT(*) AS \"count!\"\n            FROM audit_logs\n            WHERE auditable_type = 'Contribution'\n              AND auditable_id = $1\n              AND action = 'mpesa_callback_succeeded'\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "count!",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8"
+      ]
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "9ed6fefb3edf7142c340a57b7de4881ac1cd6cf126f85394e5fadf495d332046"
+}

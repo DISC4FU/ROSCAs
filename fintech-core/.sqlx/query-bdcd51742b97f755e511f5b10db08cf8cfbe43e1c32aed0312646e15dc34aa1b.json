@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE contributions\n            SET status = 'failed', raw_callback_payload = $1, updated_at = NOW()\n            WHERE id = $2 AND status = 'pending'\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Jsonb",
+        "Int8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "bdcd51742b97f755e511f5b10db08cf8cfbe43e1c32aed0312646e15dc34aa1b"
+}

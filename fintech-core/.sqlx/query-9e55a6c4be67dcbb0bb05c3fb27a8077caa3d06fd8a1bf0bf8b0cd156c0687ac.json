@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO payout_cycles (\n                chama_id, cycle_number, starts_on, ends_on, status, created_at, updated_at\n            )\n            VALUES ($1, 1, CURRENT_DATE, CURRENT_DATE + 1, 'collecting', NOW(), NOW())\n            RETURNING id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "9e55a6c4be67dcbb0bb05c3fb27a8077caa3d06fd8a1bf0bf8b0cd156c0687ac"
+}
